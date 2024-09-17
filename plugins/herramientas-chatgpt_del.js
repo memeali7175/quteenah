@@ -1,0 +1,18 @@
+
+
+const handler = async (m, {usedPrefix}) => {
+  const datas = global
+  const idioma = datas.db.data.users[m.sender].language
+  const _translate = JSON.parse(fs.readFileSync(`./src/languages/${idioma}.json`))
+  const tradutor = _translate.plugins.herramientas_chatgpt_del
+
+  try {
+    delete global.chatgpt.data.users[m.sender];
+    m.reply(`${tradutor.texto1} ${usedPrefix}بوت  ${usedPrefix}مساعد`);
+  } catch (error1) {
+    console.log(error1);
+    throw tradutor.texto2;
+  }
+};
+handler.command = ['delchatgpt'];
+export default handler;
